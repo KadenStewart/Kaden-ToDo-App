@@ -26,6 +26,16 @@ function App() {
     setTodoList(updatedTodoList);
   }
 
+  function toggleComplete(id) {
+    const updatedTodoList = [...todoList].map((todo) => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
+      }
+      return todo;
+    });
+    setTodoList(updatedTodoList);
+  }
+
   return (
     <div className="todo-container">
       <h1>To-Do List!</h1>
@@ -41,8 +51,14 @@ function App() {
       {todoList.map((todo) => (
         <div key={todo.id} className="todo">
           <div className="todo-text">
-            <input type="checkbox" />
-            <div>{todo.text}</div>
+            <input
+              type="checkbox"
+              onChange={() => toggleComplete(todo.id)}
+              checked={todo.completed}
+            />
+            <div className={todo.completed ? "todo-completed" : ""}>
+              {todo.text}
+            </div>
           </div>
 
           <div className="todo-actions">

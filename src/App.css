@@ -43,7 +43,7 @@ input [type="text"] {
   transform: scale(1.8) translateY(1px);
 }
 
-.todo text input {
+.todo-text input {
 }
 
 .todo-text {
@@ -52,6 +52,10 @@ input [type="text"] {
   margin-bottom: 16px;
   display: flex;
   align-items: center;
+}
+
+.todo-completed {
+  text-decoration: line-through;
 }
 
 button {
