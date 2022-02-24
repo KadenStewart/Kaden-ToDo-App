@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -7,6 +7,22 @@ function App() {
   const [todoList, setTodoList] = useState([]);
   const [todoEditing, setTodoEditing] = useState(null);
   const [editingText, setEditingText] = useState("");
+
+  // retrieve from localStorage
+
+  useEffect(() => {
+    const jsonTodoList = localStorage.getItem("todoList");
+    const loadedTodoList = JSON.parse(jsonTodoList);
+    if (loadedTodoList) {
+      setTodoList(loadedTodoList);
+    }
+  }, []);
+
+  // Save to localStorage
+  useEffect(() => {
+    const jsonTodoList = JSON.stringify(todoList);
+    localStorage.setItem("todoList", jsonTodoList);
+  }, [todoList]);
 
   // functions
   function handleSubmit(e) {
