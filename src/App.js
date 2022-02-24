@@ -36,6 +36,18 @@ function App() {
     setTodoList(updatedTodoList);
   }
 
+  function editTodo(id) {
+    const updatedTodoList = [...todoList].map((todo) => {
+      if (todo.id === id) {
+        todo.text = editingText;
+      }
+      return todo;
+    });
+    setTodoList(updatedTodoList);
+    setEditingText("");
+    setTodoEditing(null);
+  }
+
   return (
     <div className="todo-container">
       <h1>To-Do List!</h1>
@@ -56,14 +68,27 @@ function App() {
               onChange={() => toggleComplete(todo.id)}
               checked={todo.completed}
             />
-            <div className={todo.completed ? "todo-completed" : ""}>
-              {todo.text}
-            </div>
+
+            {todoEditing === todo.id ? (
+              <input
+                type="text"
+                onChange={(e) => setEditingText(e.target.value)}
+                value={editingText}
+              />
+            ) : (
+              <div className={todo.completed ? "todo-completed" : ""}>
+                {todo.text}
+              </div>
+            )}
           </div>
 
           <div className="todo-actions">
-            <button>Update</button>
-            <button>Edit</button>
+            {todoEditing === todo.id ? (
+              <button onClick={() => editTodo(todo.id)}>Update</button>
+            ) : (
+              <button onClick={() => setTodoEditing(todo.id)}>Edit</button>
+            )}
+
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </div>
         </div>
