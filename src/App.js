@@ -21,6 +21,11 @@ function App() {
     setTodo("");
   }
 
+  function deleteTodo(id) {
+    const updatedTodoList = [...todoList].filter((todo) => todo.id !== id);
+    setTodoList(updatedTodoList);
+  }
+
   return (
     <div className="todo-container">
       <h1>To-Do List!</h1>
@@ -34,24 +39,19 @@ function App() {
       </form>
 
       {todoList.map((todo) => (
-        <div key={todo.id}>
-          <div>{todo.text}</div>
+        <div key={todo.id} className="todo">
+          <div className="todo-text">
+            <input type="checkbox" />
+            <div>{todo.text}</div>
+          </div>
+
+          <div className="todo-actions">
+            <button>Update</button>
+            <button>Edit</button>
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          </div>
         </div>
       ))}
-
-      {/* 
-      <div className="todo">
-        <div className="todo-text">
-          <input type="checkbox" />
-          <div>Eat Pizza</div>
-        </div>
-
-        <div className="todo-actions">
-          <button>Update</button>
-          <button>Edit</button>
-          <button>Delete</button>
-        </div>
-      </div> */}
     </div>
   );
 }
